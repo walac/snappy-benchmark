@@ -4,21 +4,23 @@ import time
 import urllib2
 import time
 import json
+import glob
+from os.path import join, dirname, realpath
+import random
 
 class Transaction(object):
     def __init__(self):
-        pass
+        random.seed(time.time())
 
     def run(self):
-        data = \
-            '''
-            {
-                "stacks":[[[0,11723767],[1, 65802]]],
-                "memoryMap":[["xul.pdb","44E4EC8C2F41492B9369D6B9A059577C2"],
-                            ["wntdll.pdb","D74F79EB1F8D4A45ABCD2F476CCABACC2"]],
-                "version":4
-            }
-            '''
+        workload = join(dirname(realpath(__file__)), '..', 'workload', '*')
+        reqs = glob.glob(workload)
+        assert len(reqs) > 0
+
+        fp = open(reqs[random.randint(0, len(reqs)-1)], 'r')
+        data = json.load(fp)
+        fp.close()
+        data = json.dumps(data)
 
         headers = {
           "Content-Type": "application/json",
@@ -33,7 +35,7 @@ class Transaction(object):
         content = resp.read()
         latency = time.time() - start
 
-        self.custom_timers['Example_Timer'] = latency
+        self.custom_timers['Latency'] = latency
 
 if __name__ == '__main__':
     trans = Transaction()
