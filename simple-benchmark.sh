@@ -29,7 +29,7 @@ while getopts "p:c:n:h:" opt; do
 done
 
 if ! test $POST; then
-    POST=$(ls -1 workload/* | head -1)
+    POST=simple-post.txt
 fi
 
 ab -s 300 -p $POST -n $N -c $C -T "application/json" $HOST
