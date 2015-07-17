@@ -1,8 +1,6 @@
 
-import random
 import time
 import urllib2
-import time
 import json
 import glob
 from os.path import join, dirname, realpath
