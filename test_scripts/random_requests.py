@@ -5,6 +5,7 @@ import json
 import glob
 from os.path import join, dirname, realpath
 import random
+import _util as util
 
 class Transaction(object):
     def __init__(self):
@@ -26,7 +27,7 @@ class Transaction(object):
           "Connection": "close"
         }
 
-        request = urllib2.Request('http://localhost:8000/', data=data, headers=headers)
+        request = urllib2.Request(util.get_host(), data=data, headers=headers)
 
         start = time.time()
         resp = urllib2.urlopen(request)
