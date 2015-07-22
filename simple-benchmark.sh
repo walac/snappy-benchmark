@@ -32,4 +32,4 @@ if ! test $POST; then
     POST=simple-post.txt
 fi
 
-ab -s 300 -p $POST -n $N -c $C -T "application/json" $HOST
+siege -b -r $N -c $C -H "application:json" "$HOST POST <$POST"
