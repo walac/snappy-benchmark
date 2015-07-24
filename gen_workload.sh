@@ -4,7 +4,7 @@
 
 LOGS_DIR=logs
 HOST=http://localhost:8000/
-WORKLOAD_DIR=workload
+WORKLOAD_DIR=$PWD/workload
 
 while getopts "l:h:" opt; do
     case $opt in
